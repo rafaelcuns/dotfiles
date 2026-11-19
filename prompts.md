@@ -63,13 +63,15 @@ Analise o arquivo `README.md` (e os arquivos atuais do repositório, se existire
    - **Core/Integração:** Regras de negócio, serviços, endpoints/APIs ou comunicação com hardware/serviços externos.
    - **Interface/Entrega:** Telas, componentes visuais, rotas, CLI ou recursos específicos da plataforma (como Manifest/Service Worker em PWAs).
 3. **Regra dos 3 Arquivos (Escopo Atômico):** Cada etapa deve representar a criação ou alteração de uma única funcionalidade e pode criar ou modificar **no máximo 3 arquivos** (única exceção permitida é a Etapa 1 de setup e configuração inicial do projeto). Se uma funcionalidade afetar camadas diferentes (ex: banco/API e interface), divida-a em etapas separadas.
-4. **Controle de Progresso:** Use checkboxes (`- [ ]`) no título de todas as etapas para acompanhamento.
+4. **Identificação de Ações Manuais Externas:** Sempre que uma etapa depender de configurações fora do código (ex: criar projeto no Supabase, rodar SQL no painel web, gerar chaves de API, configurar OAuth no Google Cloud, cadastrar webhooks ou configurar deploy no Netlify), sinalize isso explicitamente na etapa para que, durante a execução, um tutorial passo a passo de interface web ("onde clicar") seja fornecido.
+5. **Controle de Progresso:** Use checkboxes (`- [ ]`) no título de todas as etapas para acompanhame
 
 ## Estrutura Obrigatória para Cada Etapa
 
 - **Título:** `- [ ] Etapa X - [CAMADA/ESCOPO] Nome da funcionalidade` *(ex: `[SETUP]`, `[DADOS]`, `[API]`, `[UI]`, `[PWA]`, `[CORE]`)*
 - **Arquivos afetados:** Lista exata dos arquivos (máx. 3) que serão criados ou modificados e o que será feito em cada um.
 - **Contratos / Reutilizáveis:** *(Opcional)* Liste assinaturas de funções, endpoints (rotas e JSONs de entrada/saída), hooks, tipos ou componentes criados nesta etapa que serão consumidos nas próximas.
+- **Ação Manual Externa:** *(Opcional — incluir apenas quando necessário)* Indique qual plataforma web precisa ser acessada (ex: Painel Supabase, Mercado Pago Developers) e o que precisa ser configurado ou copiado/colado manualmente.
 - **Como testar:** Passo a passo objetivo de como executar e validar a entrega da etapa (via terminal, testes automatizados, requisições HTTP ou interação visual na interface) antes de avançar.
 
 ## Exemplo de Formato Esperado
@@ -77,5 +79,6 @@ Analise o arquivo `README.md` (e os arquivos atuais do repositório, se existire
 - [ ] Etapa 2 - [UI] Criação da tela de perfil do usuário
   - **Arquivos afetados:** Criar `src/pages/TelaUsuario.tsx` para a interface e atualizar `src/routes.tsx` para registrar a rota.
   - **Contratos / Reutilizáveis:** Componente `TelaUsuario` e função `formatarNome(nome: string): string` exportados para reuso.
+  - **Ação Manual Externa:** "Abra o console do Google Cloud → Menu lateral 'APIs e Serviços' → 'Credenciais' → '+ Criar Credenciais' → 'ID do cliente OAuth' → Cole a URL de callback do Supabase aqui → Copie o Client ID e cole no painel do Supabase em Authentication > Providers > Google..."
   - **Como testar:** Execute o projeto, acesse a rota `/usuario` e teste a alteração da imagem e do nome, validando se a interface reflete as mudanças sem erros no console.
 ```
